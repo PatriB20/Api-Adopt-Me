@@ -29,13 +29,13 @@ router.post('/login', (req, res)=>{
             res.send("Email o contraseña incorrectos");
         }else{
             //console.log("Se ha logueado correctamente");
-            //res.send(result);
-             let data = JSON.stringify(result[0]);
-            const token = jwt.sign(data,'stil');
-            res.send(token)
-             console.log(jwt.verify(token,'stil'));
-           res.json(result);
-           console.log(result);
+            res.send(result);
+        //      let data = JSON.stringify(result[0]);
+        //     const token = jwt.sign(data,'stil');
+        //     res.send(token)
+        //      console.log(jwt.verify(token,'stil'));
+        //    res.json(result);
+        //    console.log(result);
             // let data = json.stringify(result[0]);
             // const token = jwt.sign(data,'strong');
             // res.json({token})
