@@ -7,22 +7,54 @@ const mysqlConnection  = require('../../config/sql');
 routes.get('/animal',(req, res)=>{
     console.log('get animal');
 
-    let sql;
-    var nombreAnimal = req.query.nombreAnimal
-    if(nombreAnimal==null)
-     sql="SELECT * FROM animal";
-    else
-     sql="SELECT * FROM animal WHERE nombre="+nombreAnimal;
+    let sql = "SELECT * FROM animal";
+    let nombreAnimal = req.query.nombreAnimal;
+    let sexo = req.query.sexo;
+    let tipoAnimal = req.query.tipoAnimal;
+    let ingreso = req.query.ingreso;
 
-     mysqlConnection.query(sql, function(err, result){
+    nombreAnimal = (!nombreAnimal || nombreAnimal==="")? false : nombreAnimal; 
+    sexo = (!sexo || sexo==="")? false : sexo;
+    tipoAnimal = (!tipoAnimal || tipoAnimal==="")? false : tipoAnimal;
+    ingreso = (!ingreso || ingreso==="")? false : ingreso;
 
-        if(err)
-        console.log(err);
-        else{
+    console.log(nombreAnimal);
+    console.log(sexo);
+    console.log(tipoAnimal);
+    console.log(ingreso);
+    if (nombreAnimal || sexo || tipoAnimal  || ingreso ) {
+        sql = sql + " WHERE ";
+        if (nombreAnimal) {
+            sql = `${sql} nombre='${nombreAnimal}' AND `
+        }
+        if (sexo) {
+            sql = `${sql} sexo='${sexo}' AND `
+        }
+        if (tipoAnimal) {
+            sql = `${sql} tipo_animal='${tipoAnimal}' AND`
+        }
+        if (ingreso) {
+            sql = `${sql} fecha_ingresso='${ingreso}' AND`;
+        }
+        sql = sql.substring(0, sql.length - 4);
+        sql = `${sql} AND estado='adopcion'`
+    }
+    else{
+        sql = `${sql} WHERE estado='adopcion'`
+    }
+    
+    
+    
+    mysqlConnection.query(sql, function (err, result) {
+
+        if (err)
+            console.log(err);
+        else {
             res.send(result);
         }
 
     })
+
 
     
 })
