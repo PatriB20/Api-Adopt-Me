@@ -17,6 +17,8 @@ router.get('/pruebas', (req,res)=>{
 
 router.post('/login', (req, res)=>{
     const {email,password} = req.body;
+    console.log(email);
+    console.log(password);
    let sql = "select * from login where email=? and password=?";
    let value =[email,password];
     
@@ -24,14 +26,18 @@ router.post('/login', (req, res)=>{
        if(!err){
 
         if(result.length == 0){
-            res.send("Contraseña  o email incorrecto");
+            res.send("Email o contraseña incorrectos");
         }else{
-            //console.log("Te has logueado correctamente");
+            //console.log("Se ha logueado correctamente");
             //res.send(result);
              let data = JSON.stringify(result[0]);
             const token = jwt.sign(data,'stil');
             res.send(token)
              console.log(jwt.verify(token,'stil'));
+           res.json(result);
+           console.log(result);
+            // let data = json.stringify(result[0]);
+            // const token = jwt.sign(data,'strong');
             // res.json({token})
         }   
             
@@ -93,14 +99,14 @@ router.post('/registro', (req,res)=>{
 router.post('/test',verifyToken,(req, res)=>{
     console.log(req.data);
     if(req.data.roleId==='user'){
-        console.log("Informacion secreta")
+        console.log("Información secreta")
     }
 })
 
 //headder Authorization
 function verifyToken(req,res,next){
     
-    if(!req.headers.authorization) return res.status(401).json('No autorizado guilipollas');
+    if(!req.headers.authorization) return res.status(401).json('No está autorizado');
     const token = req.headers.authorization.substring(7);
     console.log(token)
 
