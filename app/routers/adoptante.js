@@ -3,6 +3,7 @@ const express = require('express');
 const routes = express.Router();
 const mysqlConnection  = require('../../config/sql');
 
+
 // Endpoint de get
 routes.get("/adoptante", function(request, response){
     let id = request.query.id;
@@ -16,6 +17,7 @@ routes.get("/adoptante", function(request, response){
         else response.send(resultado);
     })
 })
+
 
 // Endpoint de put
 routes.put("/adoptante", function(request, response){
