@@ -47,12 +47,13 @@ router.post('/login', (req, res)=>{
    })
 })
 //Ruta de registro
-router.post('/registro', (req,res)=>{
-    const{eleccion} = req.body;
+router.post('/registro', (req, res) => {
+    const {eleccion} = req.body;
+    console.log(eleccion);
     if(eleccion == 'protectora'){
-        const {nombre,direccion,localidad,telefono,email,password} = req.body;
+        const {nombre, direccion, localidad, telefono, email, password} = req.body;
         let sql = 'INSERT INTO protectora (nombre, direccion, localidad, telefono) VALUES (?,?,?,?)';
-        let value = [nombre,direccion,localidad,telefono];
+        let value = [nombre, direccion, localidad, telefono];
         mysqlConnection.query(sql,value, (err,result)=>{
             if(!err){  
                 const id =result.insertId
@@ -72,8 +73,8 @@ router.post('/registro', (req,res)=>{
             }
         })
     }
-    if(eleccion== 'adoptantes'){
-        const {nombre,apellidos,fechaNacimiento,telefono,localidad,dirrecion,email,password} = req.body;
+    if(eleccion == 'adoptante'){
+        const {nombre, apellidos, fechaNacimiento, telefono, localidad, dirrecion, email, password} = req.body;
         let sql = 'INSERT INTO `adoptante` (`nombre`, `apellidos`, `fechaNacimiento`, `telefono`, `localidad`,`dirrecion`) VALUES (?,?,?,?,?,?)';
         let value =[nombre,apellidos,fechaNacimiento,telefono,localidad,dirrecion];
         mysqlConnection.query(sql,value, (err,result)=>{
