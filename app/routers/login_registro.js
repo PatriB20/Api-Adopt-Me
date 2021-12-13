@@ -59,9 +59,9 @@ router.post('/registro', (req, res) => {
         })
     }
     if(eleccion == 'adoptante'){
-        const {nombre, apellidos, fechaNacimiento, telefono, localidad, dirrecion, email, password} = req.body;
-        let sql = 'INSERT INTO `adoptante` (`nombre`, `apellidos`, `fechaNacimiento`, `telefono`, `localidad`,`dirrecion`) VALUES (?,?,?,?,?,?)';
-        let value =[nombre,apellidos,fechaNacimiento,telefono,localidad,dirrecion];
+        const {nombre, apellidos, fechaNacimiento, telefono, localidad, direccion, email, password} = req.body;
+        let sql = 'INSERT INTO `adoptante` (`nombre`, `apellidos`, `fechaNacimiento`, `telefono`, `localidad`,`direccion`) VALUES (?,?,?,?,?,?)';
+        let value =[nombre,apellidos,fechaNacimiento,telefono,localidad,direccion];
         mysqlConnection.query(sql,value, (err,result)=>{
             if(!err){
                 const id = result.insertId;
